@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet Vue CDN</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <h1>{{ titre }}</h1>
+        <button @click="incrementer">Compteur: {{ compteur }}</button>
+    </div>
+
+    <script>
+        // Création de l'application Vue avec l'Options API
+        const { createApp } = Vue
+
+        createApp({
+            data() {
+                return {
+                    titre: 'Bienvenue sur notre projet Vue CDN!',
+                    compteur: 0
+                }
+            },
+            methods: {
+                incrementer() {
+                    this.compteur++
+                }
+            }
+        }).mount('#app')
+    </script>
+
+</body>
+</html>
