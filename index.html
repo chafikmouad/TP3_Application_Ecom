@@ -1,36 +1,68 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projet Vue CDN</title>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-</head>
-<body>
+	<head>
+		<meta charset="utf-8">
+		<title>Les Bonnes Pièces</title>
+		<link rel="stylesheet" href="styles.css">
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+		<script type="module" src="pieces.js"></script>
+		<link rel="icon" type="image/png" href="images/logo-les-bonnes-pieces.png" sizes="32x32">
 
-    <div id="app">
-        <h1>{{ titre }}</h1>
-        <button @click="incrementer">Compteur: {{ compteur }}</button>
-    </div>
+	</head>
+	<body>
+		<div id="app">
+			<header>
+				<div class="logo-title">
+					<img src="images/logo-les-bonnes-pieces.png" alt="LOGO">
+					<h1>Les Bonnes Pièces</h1>
+				</div>
 
-    <script>
-        // Création de l'application Vue avec l'Options API
-        const { createApp } = Vue
+				<div class="cart-container">
+					<button :class="{ disabled: panier.length === 0 }" @click="openCart" title="Panier" id="cart-btn">
+						<img src="images/panier.png" alt="Panier" style="width:40px; vertical-align:middle;">
+						({{ panier.length }})
+					</button>
+				</div>
+			</header>
 
-        createApp({
-            data() {
-                return {
-                    titre: 'Bienvenue sur notre projet Vue CDN!',
-                    compteur: 0
-                }
-            },
-            methods: {
-                incrementer() {
-                    this.compteur++
-                }
-            }
-        }).mount('#app')
-    </script>
+			<main>
+				<!-- Menu de recherche -->
+				<section class="filtres">
+					<h3>Filtres</h3>
+					
+					<input type="text" placeholder="Rechercher une pièce..." v-model="recherche"/>
 
-</body>
+					<select v-model="categorieSelectionnee">
+						<option value="">Toutes les catégories</option>
+						<option v-for="cat in categories" :key="cat" :value="cat"> {{ cat }} </option>
+					</select>
+
+					<label>
+						<input type="checkbox" v-model="disponibleSeulement" />
+						Disponible uniquement
+					</label>
+
+					<select v-model="tri">
+						<option value="">Aucun tri</option>
+						<option value="asc">Prix croissant</option>
+						<option value="desc">Prix décroissant</option>
+					</select>
+				</section>
+				<!-- Fiches produits -->
+				<section class="fiches">
+					<article v-for="piece in piecesFiltreesTriees" :key="piece.id" class="fiche">
+						<img :src="piece.image" />
+						<h4>{{ piece.nom }}</h4>
+						<p>Catégorie : {{ piece.categorie }}</p>
+						<p>Prix : {{ piece.prix }} €</p>
+						<p v-if="piece.disponible" class="dispo">En stock</p>
+						<p v-else class="indispo"> Rupture</p>
+						<button @click="ajouterAuPanier(piece)" :disabled="!piece.disponible">
+							Ajouter au panier
+						</button>
+					</article>
+				</section>
+			</main>
+			<footer>© 2025 Les Bonnes Pièces</footer>
+	</body>
 </html>
