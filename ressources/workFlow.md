@@ -5,16 +5,13 @@ Construire une application Vue.js qui affiche des pièces auto depuis un fichier
 
 ```bash
 ecom-cars/
-│
 ├── index.html
 ├── script.js
-├── app.vue
-├── pieces-autos.json        
-└── components/
+├── pieces-autos.json
 └── images/
-    ├── piece_1.png
-    ├── piece_2.png
-    └── ... piece_25.png
+    ├── img1.png
+    ├── img2.png
+    └── ... img25.png
 ```
 
 ##  Workflow de notre siteweb
