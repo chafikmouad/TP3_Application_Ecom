@@ -30,16 +30,14 @@
                     <th>Prix Unitaire (€)</th>
                     <th>Quantité</th>
                     <th>Sous-Total (€)</th>
-                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(item,index) in panier" :key="item.id">
+                <tr v-for="item in panier" :key="item.id">
                     <td>{{ item.nom }}</td>
                     <td class="price">{{ item.prix.toFixed(2) }}</td>
                     <td>{{ item.quantite }}</td>
                     <td class="price">{{ (item.prix * item.quantite).toFixed(2) }}</td>
-                    <td><button @click="supprimerDuPanier(index)">Supprimer</button></td>
                 </tr>
                 </tbody>
             </table>
