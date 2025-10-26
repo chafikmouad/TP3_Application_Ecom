@@ -27,30 +27,29 @@
                 <thead>
                 <tr>
                     <th>Produit</th>
-                    <th>Prix Unitaire (€)</th>
+                    <th>Prix Unitaire (DH)</th>
                     <th>Quantité</th>
-                    <th>Sous-Total (€)</th>
+                    <th>Sous-Total (DH)</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="item in panier" :key="item.id">
+                <tr v-for="(item,index) in panier" :key="item.id">
                     <td>{{ item.nom }}</td>
                     <td class="price">{{ item.prix.toFixed(2) }}</td>
                     <td>{{ item.quantite }}</td>
                     <td class="price">{{ (item.prix * item.quantite).toFixed(2) }}</td>
+                    <td><button class ="btn-supprimer" @click="supprimerDuPanier(index)">Supprimer</button></td>
                 </tr>
                 </tbody>
             </table>
 
             <div class="cart-actions" v-if="panier.length > 0">
-                <p class="total">Total : {{ totalPanier }} €</p>
+                <p class="total">Total : {{ totalPanier }} DH</p>
                 <button @click="validerCommande">Valider (Payer)</button>
                 <button @click="retournerAccueil" class="secondary">Retourner</button>
             </div>
 
-            <div class="empty-actions" v-else>
-                <a href="index.html">Retour à l'accueil</a>
-            </div>
             </section>
         </main>
         </div>
