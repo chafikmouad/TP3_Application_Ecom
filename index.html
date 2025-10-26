@@ -51,7 +51,7 @@
             <img :src="piece.image" />
             <h4>{{ piece.nom }}</h4>
             <p>Catégorie : {{ piece.categorie }}</p>
-            <p>Prix : {{ piece.prix }} €</p>
+            <p>Prix : {{ piece.prix }} DH</p>
             <p v-if="piece.disponible" class="dispo">En stock</p>
             <p v-else class="indispo"> Rupture</p>
             <button @click="ajouterAuPanier(piece)" :disabled="!piece.disponible">
