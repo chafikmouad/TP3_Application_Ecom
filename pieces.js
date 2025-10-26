@@ -1,12 +1,10 @@
-// pieces.js (VERSION CORRIGÉE)
-
 const app = Vue.createApp({
   data() {
     return {
       pieces: [],
       recherche: "",
       categorieSelectionnee: "",
-      disponibleSeulement: false, // Recommandé: mettre 'true' pour le filtre initial du TP
+      disponibleSeulement: false,
       tri: "",
       panier: [],
     };
@@ -29,7 +27,6 @@ const app = Vue.createApp({
       });
   },
   computed: {
-    // catégories uniques pour le select
     categories() {
       return [...new Set(this.pieces.map(p => p.categorie))].sort();
     },
@@ -58,23 +55,18 @@ const app = Vue.createApp({
       return resultat;
     },
 
-    // CORRECTION : Déplacé à l'intérieur du bloc 'computed'
     quantiteTotalePanier() {
-      // Calcule le nombre total d'articles (somme des quantités)
       return this.panier.reduce((sum, item) => sum + item.quantite, 0);
     }
   },
 
   methods: {
-    // ajoute au panier et sauvegarde dans localStorage
     ajouterAuPanier(piece) {
       const itemExistant = this.panier.find(item => item.id === piece.id);
 
       if (itemExistant) {
-        // Si elle existe, incrémenter la quantité
         itemExistant.quantite++;
       } else {
-        // Si elle n'existe pas, l'ajouter avec quantité = 1
         this.panier.push({
           id: piece.id,
           nom: piece.nom,
@@ -85,13 +77,11 @@ const app = Vue.createApp({
       this.savePanier();
     },
 
-    // (Cette méthode n'est pas utilisée dans le panier.html, mais la logique est ici)
     retirerDuPanier(index) {
       this.panier.splice(index, 1);
       this.savePanier();
     },
 
-    // sauvegarde dans localStorage
     savePanier() {
       localStorage.setItem('panier', JSON.stringify(this.panier));
     },
@@ -112,7 +102,6 @@ const app = Vue.createApp({
       if (this.panier.length > 0) {
         window.location.href = 'panier.html';
       } else {
-        // AMÉLIORATION : Informer l'utilisateur
         alert("Votre panier est vide. Veuillez ajouter des pièces.");
       }
     }
